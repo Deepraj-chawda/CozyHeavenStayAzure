@@ -1,0 +1,122 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Hind Siliguri", sans-serif;
+}
+
+html , body {
+    overflow-x: hidden;
+    /* overflow-y: auto; */
+    scroll-behavior: smooth;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #afb2bf;
+  }
+  
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: #000814;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #afb2bf;
+    border-radius: 10px;
+    visibility: hidden;
+  }
+  
+  *:active::-webkit-scrollbar-thumb,
+  *:focus::-webkit-scrollbar-thumb,
+  *:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+
+
+  /* Form style */
+  input.ng-invalid.ng-touched{
+    border: red 2px solid;
+  }
+  
+  input.ng-pending{
+    border: yellow 2px solid;
+  }
+
+  small{
+    color: red;
+    font-weight: bold;
+  }
+
+  .mand {
+    color : rgb(206, 33, 91);
+    font-size: 0.9rem;
+  }
+
+/* CSS */
+.nav-btn {
+  background-color: #0095ff;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.nav-btn:hover,
+.nav-btn:focus {
+  background-color: #07c;
+}
+
+.nav-btn:focus {
+  box-shadow: 0 0 0 4px rgba(0, 149, 255, .15);
+}
+
+.nav-btn:active {
+  background-color: #0064bd;
+  box-shadow: none;
+}
+
+/* Loader */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}

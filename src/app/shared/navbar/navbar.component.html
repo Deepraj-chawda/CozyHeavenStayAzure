@@ -1,0 +1,123 @@
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="'/login'">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/signup-user'">Signup</a>
+          </li>
+          
+          <button class="btn btn-secondary" (click)="logOut()">
+            Logout
+          </button>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+ -->
+
+  
+ <header class="navbar-light header-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<!-- Logo START -->
+			<a class="navbar-brand" [routerLink]="'/home'">
+				<img class="light-mode-item navbar-brand-item" src="../../../assets/AuthImages/logo.png" style="background-color: transparent;" width="85" height="85" alt="logo">
+			</a>
+			<!-- Logo END -->
+			
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto mx-3 me-md-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll">
+					<li class="nav-item"><a class="nav-link fw-semibold " style="font-size: large;" routerLink="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link fw-semibold" style="font-size: large;" routerLink="/hotel">Hotels</a></li>
+					<li class="nav-item"> <a class="nav-link fw-semibold" style="font-size: large;" routerLink="/contact">Contact Us</a></li>
+					<li class="nav-item"> <a class="nav-link fw-semibold" style="font-size: large;" routerLink="/about">About Us</a></li>
+				</ul>
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile and Notification START -->
+			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+
+        <div class="d-flex flex-row align-items-center gap-2" *ngIf="!user">
+          <div class="btn btn-primary-soft mb-0" (click)="moveToLogin()">Login
+          </div>
+          <div class="btn btn-primary-soft mb-0" (click)="moveToSignup()">SignUp
+          </div>
+        </div>
+				
+				<!-- Profile dropdown START -->
+			<li class="nav-item ms-3 dropdown d-lg-flex flex-lg-row align-items-center gap-2" *ngIf="user">
+					<di routerLink="/dashboard/bookings" *ngIf="user?.role==='User'" class="position-relative mt-1">
+						<i class="bi bi-cart2" style="font-size: 2rem; color: rgb(74, 74, 93); cursor: pointer;"></i>
+						<!-- <span class="position-absolute bg-primary p-2 text-center text-white d-flex 
+						justify-content-center align-items-center animate__animated animate__bounce rounded-circle top-0 end-0" 
+						style="margin-top: 15%; margin-right: -10%; width: 15px; height: 15px;">
+						Have to show users booking length 
+						</span> -->
+					</di>
+					<!-- Avatar -->
+					<div style="text-decoration: none;" class="avatar avatar-xs p-0" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+						<img class="avatar-img rounded-circle" [src]="user?.profileImage" width="35" height="35" alt="avatar">
+					</div>
+
+					<!-- Profile dropdown START -->
+					<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" style="z-index: 1000;" aria-labelledby="profileDropdown">
+						<!-- Profile info -->
+						<li class="px-3 mb-3">
+							<div class="d-flex align-items-center">
+								<!-- Avatar -->
+								<div class="avatar me-3">
+									<img class="avatar-img rounded-circle shadow" [src]="user?.profileImage" width="40" height="40" alt="avatar">
+								</div>
+								<div>
+									<span class="h6 mt-2 mt-sm-0 fw-bold" href="#">{{user?.firstName}} {{user?.lastName}}</span>
+									<p class="small m-0 text-secondary">{{user?.email}}</p>
+								</div>
+							</div>
+						</li>
+
+						<!-- Links -->
+						<div class="text-secondary" style="padding-left: 5px; padding-right: 5px;">
+							<li> <hr class="dropdown-divider"></li>
+							<li *ngIf="user?.role === 'User'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/bookings"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+							<li *ngIf="user?.role === 'User'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/payment-history"><i class="bi bi-clock-history fa-fw me-2"></i>Payment History</a></li>
+							<li *ngIf="user?.role === 'Admin'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/manage-bookings"><i class="bi bi-record fa-fw me-2"></i>Manage Bookings</a></li>
+							<li *ngIf="user?.role === 'Admin'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/manage-users"><i class="bi bi-people fa-fw me-2"></i>Manage Users</a></li>
+							<li *ngIf="user?.role === 'Admin'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/manage-owners"><i class="bi bi-peace-fill fa-fw me-2"></i>Manage Owners</a></li>
+							<li *ngIf="user?.role === 'Owner'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/add-hotel/0"><i class="fa fa-hotel fa-fw me-2"></i>Add Hotel</a></li>
+							<li *ngIf="user?.role === 'Owner'"><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/my-listings"><i class="fa fa-list fa-fw me-2"></i>My Listings</a></li>
+							<li><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/profile"><i class="bi bi-gear fa-fw me-2"></i>Profile</a></li>
+							<!-- <li><a class="dropdown-item rounded-2 bg-hov" routerLink="/dashboard/delete-profile"><i class="bi bi-speedometer fa-fw me-2"></i>Dashboard</a></li> -->
+							<li><div (click)="logOut()" class="rounded-2 dropdown-item bg-danger-soft-hover" style="cursor: pointer;"><i class="bi bi-power fa-fw me-2"></i>Sign Out</div></li>       
+						</div>
+						
+					</ul>
+					<!-- Profile dropdown END -->
+				</li>
+				<!-- Profile dropdown END -->
+
+			</ul>
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->

@@ -1,0 +1,291 @@
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+  <!-- =======================
+    Main Banner START -->
+  <section class="pt-0">
+    <div class="container">
+      <!-- Background image -->
+      <div
+        class="rounded-3 p-3 p-sm-5"
+        style="
+          background-image: url(../../../../assets/HotelImages/hero-hotel1.jpg);
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        "
+      >
+        <!-- Banner title -->
+        <div class="row my-2 my-xl-5">
+          <div class="col-md-8 mx-auto">
+            <h1 class="text-center text-white">
+              Cozy Heaven - Heaven of Hotels
+            </h1>
+          </div>
+        </div>
+
+        <!-- Booking form START -->
+        <form
+          [formGroup]="searchForm"
+          (ngSubmit)="onSubmit()"
+          class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4 mb-4"
+        >
+          <div class="row g-4 align-items-center">
+            
+            <!-- Guest -->
+            <div class="col-lg-6">
+                <div
+                  class="form-control-border form-control-transparent form-fs-md d-flex"
+                >
+                  <!-- Icon -->
+                  <i class="bi bi-person fs-3 me-2 mt-2"></i>
+                  <!-- Dropdown input -->
+                  <div class="w-100">
+                    <label class="form-label">Guests & rooms</label>
+                    <div class="dropdown guest-selector me-2">
+                      <input
+                        type="text"
+                        class="form-guest-selector form-control selection-result"
+                        value="{{(searchForm.get('numberOfAdults').value + searchForm.get('numberOfChildren').value)}}  Guests  & {{searchForm.get('numberOfRooms').value}} Room"
+                        id="dropdownGuest"
+                        data-bs-auto-close="outside"
+                        data-bs-toggle="dropdown"
+                      />
+                      <!-- dropdown items -->
+                      <ul
+                        class="dropdown-menu guest-selector-dropdown"
+                        aria-labelledby="dropdownGuest"
+                      >
+                        <!-- Adult -->
+                        <li class="d-flex justify-content-between">
+                          <div>
+                            <h6 class="mb-0">Adults</h6>
+                            <small>Ages 14 or above</small>
+                          </div>
+                          <div class="hstack gap-1 align-items-center">
+                            <button (click)="addAdult(false)"
+                              type="button"
+                              class="btn btn-link adult-remove p-0 mb-0"
+                            >
+                              <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                            </button>
+                            <h6 class="guest-selector-count mb-0 adults">{{searchForm.get('numberOfAdults').value}}</h6>
+                            <button (click)="addAdult(true)"
+                              type="button"
+                              class="btn btn-link adult-add p-0 mb-0"
+                            >
+                              <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                            </button>
+                          </div>
+                        </li>
+                        <!-- Divider -->
+                        <li class="dropdown-divider"></li>
+                        <!-- Child -->
+                        <li class="d-flex justify-content-between">
+                          <div>
+                            <h6 class="mb-0">Child</h6>
+                            <small>Ages 14 below</small>
+                          </div>
+                          <div class="hstack gap-1 align-items-center">
+                            <button (click)="noOfChildren(false)"
+                              type="button"
+                              class="btn btn-link child-remove p-0 mb-0"
+                            >
+                              <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                            </button>
+                            <h6 class="guest-selector-count mb-0 child">{{searchForm.get('numberOfChildren').value}}</h6>
+                            <button (click)="noOfChildren(true)"
+                              type="button"
+                              class="btn btn-link child-add p-0 mb-0"
+                            >
+                              <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                            </button>
+                          </div>
+                        </li>
+                        <!-- Divider -->
+                        <li class="dropdown-divider"></li>
+                        <!-- Rooms -->
+                        <li class="d-flex justify-content-between">
+                          <div>
+                            <h6 class="mb-0">Rooms</h6>
+                            <small>Max room 8</small>
+                          </div>
+                          <div class="hstack gap-1 align-items-center">
+                            <button (click)="noOfRooms(false)"
+                              type="button"
+                              class="btn btn-link room-remove p-0 mb-0"
+                            >
+                              <i class="bi bi-dash-circle fs-5 fa-fw"></i>
+                            </button>
+                            <h6 class="guest-selector-count mb-0 rooms">{{searchForm.get('numberOfRooms').value}}</h6>
+                            <button (click)="noOfRooms(true)"
+                              type="button"
+                              class="btn btn-link room-add p-0 mb-0"
+                            >
+                              <i class="bi bi-plus-circle fs-5 fa-fw"></i>
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+
+            <!-- Date Range -->
+            <div class="col-lg-6">
+              <div
+                  class="form-control-border form-control form-fs-md d-flex bg-light py-3 px-4 rounded-3">
+                  <!-- Icon -->
+                  <i class="bi bi-calendar fs-3 me-2 mt-2"></i>
+                  <!-- Date input -->
+                  <div class="w-100">
+                      <label class="form-label fw-light small mb-1">Check-in and Check-out
+                          Date</label>
+                      <input type="text" name="selectedDate"
+                          class="form-control flatpickr" bsDaterangepicker
+                          formControlName="selectedDates"
+                          [bsConfig]="{ isAnimated: true, containerClass: 'theme-dark-blue', dateInputFormat: 'YYYY-MM-DD', minDate: minDate}"
+                          required>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Location -->
+          <div class="col-lg-12">
+            <div class="form-control-border w-100 form-control-transparent form-fs-md d-flex align-items-center">
+              <i class="bi bi-geo-alt fs-3 me-2"></i>
+              <div class="" style="width: 100%;">
+                <label for="typeahead-basic">Search for a Location:</label>
+                <input style="width: 100%;" id="typeahead-basic" placeholder="Enter Location" type="text" class="form-control" formControlName="location" 
+                [ngbTypeahead]="search" />                
+              </div>
+            </div>
+          </div>
+          
+          </div>
+          <!-- Button -->
+          <div class="btn-position-md-middle">
+            <button type="submit" class="icon-lg btn btn-round btn-primary mb-0" href="#"
+              ><i class="bi bi-search fa-fw"></i
+            ></button>
+          </div>
+        </form>
+        <!-- Booking from END -->
+      </div>
+    </div>
+  </section>
+  <!-- =======================
+    Main Banner END -->
+
+  <!-- =======================
+    Hotel list START -->
+  <section class="pt-0">
+    <div class="container">
+      
+
+      <div class="row">
+        <!-- Left sidebar START -->
+        <aside class="col-xl-4 col-xxl-3">
+          <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasSidebarLabel">Advance Filters</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body flex-column p-3 p-xl-0">
+              <form [formGroup]="filterCriteria" class="rounded-3 shadow" (ngSubmit)="applyFilters()">
+                <!-- Room Type & Body Type -->
+                <div *ngIf="roomConstrant.roomTypes" class="card card-body rounded-0 rounded-top p-4">
+                  <h6 class="mb-2">Room Type & Body Type</h6>
+                  <div *ngFor="let item of roomConstrant.roomTypes; let i = index" class="form-check">
+                    <input name="roomType{{i}}" (change)="onChangeRoom($event)" [checked]="filterCriteria.get('roomType').value.includes(item)" type="checkbox" class="form-check-input" [id]="item" [value]="item">
+                    <label class="form-check-label" [for]="item">{{ item }}</label>
+
+                
+                  </div>
+                </div>
+        
+                <!-- Price Range -->
+                <div class="card card-body rounded-0 p-4">
+                  <h6 class="mb-2">Price range</h6>
+                  <div *ngFor="let range of priceRanges ;let i = index" class="form-check">
+                    <input  (change)="onChangePrice($event)" name="range{{i}}" type="checkbox" [checked]="filterCriteria.get('priceRange').value.includes(range)" class="form-check-input" id="{{ range }}" [value]="range">
+                    <label class="form-check-label" for="{{ range }}">{{ range }}</label>
+                  </div>
+                </div>
+        
+                <!-- Customer Rating -->
+                <div class="card card-body rounded-0 p-4">
+                  <h6 class="mb-2">Customer Rating</h6>
+                  <div *ngFor="let rating of customerRatings; let i = index" class="form-check">
+                    <input [checked]="filterCriteria.get('customerRating').value.includes(rating)" (change)="onChangeRating($event)"  name="rating{{i}}" type="checkbox" class="form-check-input" id="{{ rating }}" [value]="rating">
+                    <label class="form-check-label" for="{{ rating }}">{{ rating }}+</label>
+                  </div>
+                </div>
+        
+                <!-- Filter and Clear buttons -->
+                <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+                  <button type="button" class="btn btn-link p-0 mb-0" (click)="clearFilters()">Clear all</button>
+                  <button type="submit" class="btn btn-primary mb-0">Filter Result</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </aside>
+        
+        <!-- Left sidebar END -->
+
+        <!-- Main content START -->
+        <div class="col-xl-8 col-xxl-9">
+          <div class="vstack gap-4">
+
+            <!-- Card item START -->
+            <ng-container *ngIf="filteredList">
+                <app-hotelcard *ngFor="let data of filteredList" [card]="data"></app-hotelcard>
+            </ng-container>
+            <div *ngIf="filteredList?.length <= 0" class="d-flex justify-content-center align-items-center " style="min-height: 70vh;">
+              <div  style="font-weight: 900; font-size: 3rem;"> No Hotels Found</div>
+            </div>
+            <!-- Card item END -->
+
+           
+
+            <!-- Pagination -->
+            <!-- <nav class="d-flex justify-content-center" aria-label="navigation">
+              <ul
+                class="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0"
+              >
+                <li class="page-item mb-0">
+                  <a class="page-link" href="#" tabindex="-1"
+                    ><i class="fa-solid fa-angle-left"></i
+                  ></a>
+                </li>
+                <li class="page-item mb-0">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item mb-0 active">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item mb-0">
+                  <a class="page-link" href="#">..</a>
+                </li>
+                <li class="page-item mb-0">
+                  <a class="page-link" href="#">6</a>
+                </li>
+                <li class="page-item mb-0">
+                  <a class="page-link" href="#"
+                    ><i class="fa-solid fa-angle-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </nav> -->
+          </div>
+        </div>
+        <!-- Main content END -->
+      </div>
+      <!-- Row END -->
+    </div>
+  </section>
+  <!-- =======================
+    Hotel list END -->
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
